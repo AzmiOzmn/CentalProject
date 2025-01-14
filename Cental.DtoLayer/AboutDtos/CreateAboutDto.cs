@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cental.EntityLayer.Entities
+namespace Cental.DtoLayer.AboutDtos
 {
-    public class About : BaseEntity
+    public class CreateAboutDto
     {
-        public int AboutId { get; set; }
+        
         public string Vision { get; set; }
         public string Mission { get; set; }
         public string Description { get; set; }

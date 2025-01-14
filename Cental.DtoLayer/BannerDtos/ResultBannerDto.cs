@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cental.EntityLayer.Entities
+namespace Cental.DtoLayer.BannerDtos
 {
-    public class Banner : BaseEntity
+    public class ResultBannerDto
     {
         public int BannerId { get; set; }
         public string Title { get; set; }
@@ -14,3 +14,4 @@ namespace Cental.EntityLayer.Entities
         public string ImageUrl { get; set; }
     }
 }
+

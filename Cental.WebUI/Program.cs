@@ -14,17 +14,16 @@ builder.Services.AddDbContext<CentalContext>();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-builder.Services.AddScoped<IAboutService, AboutManager>();
 builder.Services.AddScoped<IAboutDal, EfAboutDal>();
+builder.Services.AddScoped<IAboutService, AboutManager>();
 
-builder.Services.AddScoped<IBannerService, BannerManager>();
+
 builder.Services.AddScoped<IBannerDal, EfBannerDal>();
+builder.Services.AddScoped<IBannerService, BannerManager>();
 
-builder.Services.AddScoped<IBrandService, BrandManager>();
 builder.Services.AddScoped<IBrandDal, EfBrandDal>();
+builder.Services.AddScoped<IBrandService, BrandManager>();
 
-builder.Services.AddScoped(typeof(IGenericDal<>), typeof(GenericRepository<>));
-builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericManager<>));
 
 
 

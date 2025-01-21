@@ -1,11 +1,10 @@
-﻿
-@model List<ResultAboutDto>
+﻿@model List<ResultAboutDto>
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Hakkımızda";
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
 }
 
-<h3>Hakkımızda</h3>
+
 
 <table class="table table-bordered">
     <tr>
@@ -28,3 +27,4 @@
 </table>
 
 <a asp-action="CreateAbout" asp-controller="AdminAbout" class="btn btn-primary">Yeni Hakkımızda Ekle</a>
+

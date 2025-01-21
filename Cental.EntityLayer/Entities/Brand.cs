@@ -9,8 +9,8 @@ namespace Cental.EntityLayer.Entities
     public class Brand : BaseEntity
     {
         public int BrandId { get; set; }
-        public string BrandName { get; set; }
+        public string? BrandName { get; set; }
 
-        public List<Car> Cars { get; set; }
+        public List<Car>? Cars { get; set; }
     }
 }

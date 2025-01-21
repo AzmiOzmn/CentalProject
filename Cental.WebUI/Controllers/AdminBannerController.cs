@@ -30,5 +30,5 @@ namespace Cental.WebUI.Controllers
             _bannerService.TCreate(banner);
             return RedirectToAction("Index");
         }
-    }
+    } //
 }

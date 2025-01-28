@@ -1,10 +1,12 @@
 using Cental.BusinessLayer.Abstract;
 using Cental.BusinessLayer.Concrate;
+using Cental.BusinessLayer.Extensions;
 using Cental.BusinessLayer.Validaters;
 using Cental.DataAccessLayer.Abstract;
 using Cental.DataAccessLayer.Concrete;
 using Cental.DataAccessLayer.Context;
 using Cental.DataAccessLayer.Repositories;
+using Cental.EntityLayer.Entities;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using System.Reflection;
@@ -19,7 +21,9 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 
 
+
 builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters().AddValidatorsFromAssemblyContaining<BrandValidater>();
+builder.Services.AddServiceRegistrations();
 
 
 

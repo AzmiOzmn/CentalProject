@@ -13,6 +13,7 @@ namespace Cental.DataAccessLayer.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("server=DESKTOP-65IOJF7;database=CentalDb;integrated security=true;trustServerCertificate=true");
+            optionsBuilder.UseLazyLoadingProxies(); 
         }
 
         public DbSet<About> Abouts { get; set; }

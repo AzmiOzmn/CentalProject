@@ -16,6 +16,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // about service gördüðün zaman aboutmanager sýnýfýndan bir nesne örneði al ve iþlemi onunla yap .
 builder.Services.AddDbContext<CentalContext>();
+builder.Services.AddIdentity<AppUser, AppRole>(cfg =>
+{
+    cfg.User.RequireUniqueEmail = true;
+}).AddEntityFrameworkStores<CentalContext>().AddErrorDescriber<CustomErrorDescriber>();
+
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
@@ -27,9 +32,20 @@ builder.Services.AddServiceRegistrations();
 
 
 
-// Add services to the container.
+
 
 builder.Services.AddControllersWithViews();
+builder.Services.ConfigureApplicationCookie(cfg =>
+{
+    cfg.LoginPath = "/Login/Index"; // giriþ yolu
+    cfg.LogoutPath = "/Login/Logout"; // çýkýþ yolu
+    cfg.Cookie.Name = "Cental"; // cookie adý
+    cfg.ExpireTimeSpan = TimeSpan.FromDays(60); // cookie süresi 60 gün // TimeSpan.FromMinutes(30) 30 dakika & TimeSpan.FromHours(1) 1 saat & TimeSpan.FromDays(1) 1 gün & TimeSpan.FromDays(60) 60 gün 
+    cfg.SlidingExpiration = true; // kullanýcý iþlem yaptýkça cookie süresi uzatýlýr & false yaparsanýz belirtilen süre kadar geçerli olur
+    cfg.Cookie.HttpOnly = true; // cookieye javascript üzerinden eriþilemez & true yaparsanýz eriþilemez
+    cfg.Cookie.SecurePolicy = Microsoft.AspNetCore.Http.CookieSecurePolicy.Always; // https üzerinden çalýþýr & Always yaparsanýz sadece https üzerinden çalýþýr
+    cfg.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict; // cookieyi sadece kendi domaininde çalýþtýrýr
+});
 
 var app = builder.Build();
 
@@ -41,12 +57,13 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.UseHttpsRedirection();  // https yönlendirme
+app.UseStaticFiles(); // statik dosyalar
 
-app.UseRouting();
+app.UseRouting(); // yönlendirme
 
-app.UseAuthorization();
+app.UseAuthentication(); // kimlik doðrulama
+app.UseAuthorization(); // yetkilendirme
 
 app.MapControllerRoute(
     name: "default",

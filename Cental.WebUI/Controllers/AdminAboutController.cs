@@ -1,24 +1,26 @@
 ﻿using Cental.BusinessLayer.Abstract;
 using Cental.DtoLayer.AboutDtos;
 using Cental.EntityLayer.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cental.WebUI.Controllers
 {
+    [Authorize]
     public class AdminAboutController : Controller
     {
         private readonly IAboutService _aboutService;
 
         public AdminAboutController(IAboutService aboutService)
         {
-            _aboutService = aboutService;
+            _aboutService = aboutService; 
         }
 
         public IActionResult Index()
         {
             var values = _aboutService.TGetAll();
 
-            var result = values.Select(x => new ResultAboutDto
+            var result = values.Select(x => new ResultAboutDto 
             {
                 AboutId = x.AboutId,
                 Mission = x.Mission,
@@ -65,7 +67,7 @@ namespace Cental.WebUI.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult UpdateAbout(int id)
+        public IActionResult UpdateAbout(int id) 
         {
             var model = _aboutService.TGetById(id);
             var aboutDto = new UpdateAboutDto

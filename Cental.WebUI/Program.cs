@@ -9,6 +9,7 @@ using Cental.DataAccessLayer.Repositories;
 using Cental.EntityLayer.Entities;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,17 +35,21 @@ builder.Services.AddServiceRegistrations();
 
 
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(option=>
+{
+    option.Filters.Add(new AuthorizeFilter());
+});
+
 builder.Services.ConfigureApplicationCookie(cfg =>
 {
     cfg.LoginPath = "/Login/Index"; // giriþ yolu
     cfg.LogoutPath = "/Login/Logout"; // çýkýþ yolu
-    cfg.Cookie.Name = "Cental"; // cookie adý
-    cfg.ExpireTimeSpan = TimeSpan.FromDays(60); // cookie süresi 60 gün // TimeSpan.FromMinutes(30) 30 dakika & TimeSpan.FromHours(1) 1 saat & TimeSpan.FromDays(1) 1 gün & TimeSpan.FromDays(60) 60 gün 
-    cfg.SlidingExpiration = true; // kullanýcý iþlem yaptýkça cookie süresi uzatýlýr & false yaparsanýz belirtilen süre kadar geçerli olur
-    cfg.Cookie.HttpOnly = true; // cookieye javascript üzerinden eriþilemez & true yaparsanýz eriþilemez
-    cfg.Cookie.SecurePolicy = Microsoft.AspNetCore.Http.CookieSecurePolicy.Always; // https üzerinden çalýþýr & Always yaparsanýz sadece https üzerinden çalýþýr
-    cfg.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict; // cookieyi sadece kendi domaininde çalýþtýrýr
+    //cfg.Cookie.Name = "Cental"; // cookie adý
+    //cfg.ExpireTimeSpan = TimeSpan.FromDays(60); // cookie süresi 60 gün // TimeSpan.FromMinutes(30) 30 dakika & TimeSpan.FromHours(1) 1 saat & TimeSpan.FromDays(1) 1 gün & TimeSpan.FromDays(60) 60 gün 
+    //cfg.SlidingExpiration = true; // kullanýcý iþlem yaptýkça cookie süresi uzatýlýr & false yaparsanýz belirtilen süre kadar geçerli olur
+    //cfg.Cookie.HttpOnly = true; // cookieye javascript üzerinden eriþilemez & true yaparsanýz eriþilemez
+    //cfg.Cookie.SecurePolicy = Microsoft.AspNetCore.Http.CookieSecurePolicy.Always; // https üzerinden çalýþýr & Always yaparsanýz sadece https üzerinden çalýþýr
+    //cfg.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.Strict; // cookieyi sadece kendi domaininde çalýþtýrýr // SameSiteMode.None; // cookieyi her yere gönderir
 });
 
 var app = builder.Build();

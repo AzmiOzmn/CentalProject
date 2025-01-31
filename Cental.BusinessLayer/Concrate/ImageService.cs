@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,11 +17,16 @@ namespace Cental.BusinessLayer.Concrate
           var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
             if (extension != ".jpg" && extension != ".jpeg" && extension != ".png")
             {
-                throw new Exception("Yüklediğiniz dosya jpg, jpeg veya png formatında olmalıdır");
+                throw new ValidationException("Yüklediğiniz dosya jpg, jpeg veya png formatında olmalıdır");
             }
 
             var imageName = Guid.NewGuid() + extension;
-            var saveLocation = Path.Combine(currentDirectory,imageName);
+            var imageFolder = Path.Combine(currentDirectory, "wwwroot/images");
+            if (!Directory.Exists(imageFolder)) 
+            {
+                Directory.CreateDirectory(imageFolder);
+            }
+            var saveLocation = Path.Combine(imageFolder,imageName);
             var stream = new FileStream(saveLocation, FileMode.Create);
             await file.CopyToAsync(stream);
             return "/images/" + imageName;

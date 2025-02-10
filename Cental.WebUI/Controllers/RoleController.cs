@@ -4,10 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using Cental.DtoLayer.RoleDtos;
 using Mapster;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace Cental.WebUI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RoleController(RoleManager<AppRole> _roleManager) : Controller
     {
         public IActionResult Index()

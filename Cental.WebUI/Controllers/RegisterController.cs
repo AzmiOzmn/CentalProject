@@ -7,39 +7,41 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cental.WebUI.Controllers
 {
-    public class RegisterController(UserManager<AppUser> _userManager , IMapper _mapper) : Controller
+    [AllowAnonymous]
+    public class RegisterController(UserManager<AppUser> _userManager, IMapper _mapper) : Controller
     {
-        [AllowAnonymous]
-        public IActionResult SignUp()
+        public IActionResult Signup()
         {
             return View();
         }
 
-
         [HttpPost]
-        public async Task<IActionResult> SignUp(UserRegisterDto model) // asekron method
+        public async Task<IActionResult> Signup(UserRegisterDto model)
         {
             var user = _mapper.Map<AppUser>(model);
 
             if (!ModelState.IsValid)
             {
                 return View(model);
-
             }
 
+
+            //bir küçük harf büyük harf rakam özel karakter en az 6 
             var result = await _userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded) 
+            if (!result.Succeeded)
             {
-                foreach (var arror in result.Errors)
+                foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError(arror.Code, arror.Description);
+                    ModelState.AddModelError(string.Empty, error.Description);
                 }
                 return View(model);
             }
 
-
             return RedirectToAction("Index", "Login");
 
+
+
         }
+
     }
 }

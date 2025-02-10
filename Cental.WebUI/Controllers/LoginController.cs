@@ -4,6 +4,7 @@ using Cental.EntityLayer.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Cental.WebUI.Controllers
 {
@@ -11,8 +12,9 @@ namespace Cental.WebUI.Controllers
     public class LoginController(SignInManager<AppUser> _signInManager) : Controller
     {
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            await _signInManager.SignOutAsync();
             return View();
         }
 

@@ -35,7 +35,7 @@ builder.Services.AddServiceRegistrations();
 
 
 
-builder.Services.AddControllersWithViews(option=>
+builder.Services.AddControllersWithViews(option =>
 {
     option.Filters.Add(new AuthorizeFilter());
 });
@@ -45,7 +45,7 @@ builder.Services.ConfigureApplicationCookie(cfg =>
     cfg.LoginPath = "/Login/Index"; // giriþ yolu
     cfg.LogoutPath = "/Login/Logout"; // çýkýþ yolu
     cfg.AccessDeniedPath = "/ErrorPage/AccessDenied"; // yetki yoksa yönlendirilecek sayfa
-    
+
 });
 
 var app = builder.Build();
@@ -66,17 +66,19 @@ app.UseRouting(); // yönlendirme
 app.UseAuthentication(); // kimlik doðrulama
 app.UseAuthorization(); // yetkilendirme
 
+
+app.MapControllerRoute(
+  name: "areas",
+  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+);
+
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Default}/{action=Index}/{id?}");
 
 
 
 
-    app.MapControllerRoute(
-      name: "areas",
-      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-    );
 
 
 app.Run();

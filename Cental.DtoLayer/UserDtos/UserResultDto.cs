@@ -12,6 +12,8 @@ namespace Cental.DtoLayer.UserDtos
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
+        public string ImageUrl { get; set; }
+
         public string FullName => string.Join(" ", FirstName, LastName); // This is a computed property
 
         public string UserName { get; set; }

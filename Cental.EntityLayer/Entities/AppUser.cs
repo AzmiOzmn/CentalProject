@@ -13,7 +13,8 @@ namespace Cental.EntityLayer.Entities
         public string LastName { get; set; }
         public string? ImageUrl { get; set; }
 
-       
+        public virtual List<UserSocial> UserSocials  { get; set; }
+
 
     }
 }

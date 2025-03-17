@@ -16,34 +16,21 @@ namespace Cental.WebUI.Controllers
     {
         public IActionResult Index()
         {
-
             if (TempData["filterCars"] != null)
             {
                 var data = TempData["filterCars"].ToString();
                 if (data != null)
                 {
-
                     var filterCars = JsonSerializer.Deserialize<List<Car>>(data, new JsonSerializerOptions
                     {
                         ReferenceHandler = ReferenceHandler.IgnoreCycles
                     });
-
-
-
                     return View(filterCars);
-
                 }
             }
-
             var values = _carService.TGetAll();
             return View(values);
-
-
-
-
         }
-
-
 
         [HttpPost]
         public IActionResult FilterCars(string brand, string gear, string gas, int year)

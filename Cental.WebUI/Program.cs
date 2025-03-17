@@ -58,7 +58,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();  // https yönlendirme
+app.UseHttpsRedirection();  
 app.UseStaticFiles();
 app.UseStatusCodePagesWithReExecute("/ErrorPage/NotFound404", "?code={0}");
 app.UseRouting(); // yönlendirme
@@ -75,6 +75,7 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Default}/{action=Index}/{id?}");
+
 
 
 

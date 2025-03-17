@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Cental.DtoLayer.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cental.WebUI.Controllers
 {
+    [AllowAnonymous]
     public class DefaultController : Controller
     {
-        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();

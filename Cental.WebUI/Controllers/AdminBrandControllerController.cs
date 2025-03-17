@@ -2,6 +2,7 @@
 using Cental.EntityLayer.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PagedList.Core;
 
 namespace Cental.WebUI.Controllers
 {
@@ -10,9 +11,10 @@ namespace Cental.WebUI.Controllers
     {
 
         
-        public IActionResult Index()
+        public IActionResult Index(int page = 1, int pageSize = 3)
         {
-            var values = _brandService.TGetAll();
+            var brands = _brandService.TGetAll().AsQueryable();
+            var values = new PagedList<Brand>(brands,page,pageSize);
             return View(values);
         }
 

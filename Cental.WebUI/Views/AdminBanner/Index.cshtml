@@ -1,0 +1,37 @@
+﻿
+@model List<ResultBannerDto>
+@{
+    ViewData["Title"] = "Öne Çıkan Alan";
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+    int count = 0;
+}
+
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Resim</th>
+        <th>Başlık</th>
+        <th>Açıklama</th>
+        <th>İşlemler</th>
+
+    </tr>
+    @foreach (var item in Model)
+    {
+        count++;
+        <tr>
+            <th>@count</th>
+            <th><img src="@item.ImageUrl" style="width:75px; height:75px;" /></th>
+            <th>@item.Title</th>
+            <th>@item.Description</th>
+            <th>
+                <a asp-action="Delete" asp-route-id="@item.BannerId" class="btn btn-danger">Sil</a>
+                <a asp-action="Update" asp-route-id="@item.BannerId" class="btn btn-info">Güncelle</a>
+            </th>
+
+        </tr>
+    }
+</table>
+
+<a asp-action="Insert" asp-controller="AdminBanner" class="btn btn-primary">Yeni Öne Çıkan Alan Ekle Ekle</a>

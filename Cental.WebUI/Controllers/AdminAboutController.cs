@@ -17,7 +17,13 @@ namespace Cental.WebUI.Controllers
         public IActionResult Index()
         {
             var values = _aboutService.TGetAll();
-            return View(values);
+            var result = values.Select(about => new ResultAboutDto
+            {
+                AboutId = about.AboutId,
+                Vision = about.Vision,
+                Mision = about.Mision,
+            }).ToList();
+            return View(result);
         }
 
         [HttpGet]
@@ -58,8 +64,26 @@ namespace Cental.WebUI.Controllers
 
         public IActionResult Update(int id)
         {
-            var values = _aboutService.TGetById(id);
-            return View(values);
+            var model = _aboutService.TGetById(id);
+            var about = new UpdateAboutDto
+            {
+                AboutId = model.AboutId,
+                Vision = model.Vision,
+                Mision = model.Mision,
+                Description1 = model.Description1,
+                Description2 = model.Description2,
+                StartYear = model.StartYear,
+                ImageUrl1 = model.ImageUrl1,
+                ImageUrl2 = model.ImageUrl2,
+                Item1 = model.Item1,
+                Item2 = model.Item2,
+                Item3 = model.Item3,
+                Item4 = model.Item4,
+                NameSurname = model.NameSurname,
+                JobTitle = model.JobTitle,
+                ProfilePicture = model.ProfilePicture
+            };
+            return View(about);
         }
 
         [HttpPost]

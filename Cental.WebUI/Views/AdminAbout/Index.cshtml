@@ -1,15 +1,15 @@
-﻿@model List<About>
+﻿@model List<ResultAboutDto>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Hakkımızda";
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
 }
 
-<h1>Hakkımızda</h1>
+
 
 <table class="table table-bordered">
     <tr>
         <th>#</th>
-        <th>Vizyon</th>
-        <th>Misyon</th>
+        <th>Vizyon</th>      
         <th>İşlemler</th>
 
     </tr>
@@ -17,8 +17,7 @@
     {
         <tr>
             <th>@item.AboutId</th>
-            <th>@item.Vision</th>
-            <th>@item.Mision</th>
+            <th>@item.Vision</th>     
             <th>
                 <a asp-action="Delete" asp-route-id="@item.AboutId" class="btn btn-danger">Sil</a>
                 <a asp-action="Update" asp-route-id="@item.AboutId" class="btn btn-info">Güncelle</a>

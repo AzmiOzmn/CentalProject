@@ -1,0 +1,31 @@
+﻿@model List<Brand>
+@{
+    ViewData["Title"] = "Markalar";
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+    int count = 0;
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Marka</th>
+        <th>İşlemler</th>
+
+    </tr>
+    @foreach (var item in Model)
+    {
+        count++;
+        <tr>
+            <th>@count</th>
+            <th>@item.BrandName</th>
+            <th>
+                <a asp-action="Delete" asp-route-id="@item.BrandId" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                <a asp-action="Update" asp-route-id="@item.BrandId" class="btn btn-info"><i class="fa fa fa-pencil-alt"></i></a>
+            </th>
+
+        </tr>
+    }
+</table>
+
+<a asp-action="Insert" asp-controller="AdminBrand" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Yeni Marka Ekle </a>
+

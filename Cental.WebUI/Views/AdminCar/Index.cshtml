@@ -1,0 +1,39 @@
+﻿@model List<Car>
+@{
+    ViewData["Title"] = "Arabalar";
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+    int count = 0;
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Model Adı</th>
+        <th>Model Yılı</th>
+        <th>Kilometre</th>
+        <th>Marka</th>
+        <th>İşlemler</th>
+
+    </tr>
+    @foreach (var item in Model)
+    {
+        count++;
+        <tr>
+            <th>@count</th>
+            <th>@item.ModelName</th>
+            <th>@item.Year</th>
+            <th>@item.Kilometer</th>
+            <th>@item.BrandId</th>
+           
+            <th>
+                <a asp-action="Delete" asp-route-id="@item.CarId" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                <a asp-action="Update" asp-route-id="@item.CarId" class="btn btn-info"><i class="fa fa fa-pencil-alt"></i></a>
+            </th>
+
+        </tr>
+    }
+</table>
+
+<a asp-action="Insert" asp-controller="AdminCar" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Yeni Araba Ekle </a>
+
+

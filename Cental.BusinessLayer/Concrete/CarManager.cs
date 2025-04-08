@@ -11,8 +11,15 @@ namespace Cental.BusinessLayer.Concrete
 {
     public class CarManager : IGenericManager<Car>, ICarService
     {
-        public CarManager(IGenericDal<Car> genericDal) : base(genericDal)
+        private readonly ICarDal carDal;
+        public CarManager(IGenericDal<Car> genericDal, ICarDal carDal) : base(genericDal)
         {
+            this.carDal = carDal;
+        }
+
+        public List<Car> TGetCarsWithBrands()
+        {
+          return  carDal.GetCarsWithBrands();
         }
     }
 }

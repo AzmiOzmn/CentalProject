@@ -4,9 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cental.EntityLayer.Entities
+namespace Cental.DtoLayer.Enums
 {
-   public abstract class BaseEntity
+  public enum GasTypes
     {
+        Benzin,
+        Dizel,
+        LPG,
+        Hybrit,
+        Elektrik
+
+
     }
 }

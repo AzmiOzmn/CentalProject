@@ -1,4 +1,5 @@
 ﻿using Cental.EntityLayer.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,12 @@ using System.Threading.Tasks;
 
 namespace Cental.DataAccessLayer.Context
 {
-   public class CentalContext : DbContext
+   public class CentalContext : IdentityDbContext<AppUser,AppRole,int>
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
            optionsBuilder.UseSqlServer("Server=DESKTOP-65IOJF7;Database=CentalDB;Integrated Security=True;trustServerCertificate=true");
+           optionsBuilder.UseLazyLoadingProxies();
         }
 
       public DbSet<About> Abouts { get; set; }

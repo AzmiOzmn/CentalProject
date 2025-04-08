@@ -13,7 +13,7 @@ namespace Cental.EntityLayer.Entities
 
         #region Navigation Properties Car
         public int CarId { get; set; }
-        public Car Car { get; set; }
+        public virtual Car Car { get; set; }
         #endregion
     }
 }

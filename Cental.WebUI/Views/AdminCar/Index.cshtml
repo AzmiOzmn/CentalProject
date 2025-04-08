@@ -8,10 +8,12 @@
 <table class="table table-bordered">
     <tr>
         <th>#</th>
+        <th>Görsel</th>
         <th>Model Adı</th>
+        <th>Marka</th>
         <th>Model Yılı</th>
         <th>Kilometre</th>
-        <th>Marka</th>
+        
         <th>İşlemler</th>
 
     </tr>
@@ -20,10 +22,12 @@
         count++;
         <tr>
             <th>@count</th>
+            <th><img src="@item.ImageUrl" width="100px;" height="100px;" /></th>
             <th>@item.ModelName</th>
+            <th>@item.Brand.BrandName</th>
             <th>@item.Year</th>
             <th>@item.Kilometer</th>
-            <th>@item.BrandId</th>
+            
            
             <th>
                 <a asp-action="Delete" asp-route-id="@item.CarId" class="btn btn-danger"><i class="fa fa-trash"></i></a>

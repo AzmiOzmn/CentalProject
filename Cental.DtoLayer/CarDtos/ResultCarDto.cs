@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cental.EntityLayer.Entities
+namespace Cental.DtoLayer.CarDtos
 {
-   public abstract class BaseEntity
+    class ResultCarDto
     {
     }
 }

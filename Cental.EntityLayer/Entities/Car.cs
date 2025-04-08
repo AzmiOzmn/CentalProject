@@ -22,12 +22,12 @@ namespace Cental.EntityLayer.Entities
         #region Navigation Properties Brand
 
         public int BrandId { get; set; } // Foreign key property
-        public Brand Brand { get; set; } // Navigation property
+        public virtual Brand Brand { get; set; } // Navigation property
 
         #endregion
 
         #region List of Reviews
-        public List<Review> Reviews { get; set; }
+        public virtual List<Review> Reviews { get; set; }
         #endregion
 
     }

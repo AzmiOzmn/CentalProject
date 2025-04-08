@@ -12,7 +12,7 @@ namespace Cental.EntityLayer.Entities
         public string? BrandName { get; set; }
 
         #region List of Cars
-        public List<Car>? Cars { get; set; }
+        public virtual List<Car>? Cars { get; set; }
         #endregion
     }
 }

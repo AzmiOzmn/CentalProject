@@ -17,7 +17,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<CentalContext>();
 
-builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<CentalContext>(); // Identity Config
+builder.Services.AddIdentity<AppUser, AppRole>(cfg=>
+{
+    cfg.User.RequireUniqueEmail = true;
+}).AddEntityFrameworkStores<CentalContext>().AddErrorDescriber<CustomErrorDescriber>(); // Identity Config 
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

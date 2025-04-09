@@ -1,11 +1,12 @@
-﻿using Cental.DtoLayer.UserDtos;
+﻿using AutoMapper;
+using Cental.DtoLayer.UserDtos;
 using Cental.EntityLayer.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cental.WebUI.Controllers
 {
-    public class RegisterController(UserManager<AppUser> _userManager) : Controller
+    public class RegisterController(UserManager<AppUser> _userManager, IMapper _mapper) : Controller
     {
         public IActionResult SignUp()
         {
@@ -14,9 +15,28 @@ namespace Cental.WebUI.Controllers
 
         [HttpPost]
 
-        public IActionResult SignUp(UserRegisterDto model)
+        public async Task<IActionResult> SignUp(UserRegisterDto model)
         {
-            return View();
+            var user = _mapper.Map<AppUser>(model);
+
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var result = await _userManager.CreateAsync(user,model.Password);
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return View(model);
+            }
+
+            return RedirectToAction("Index", "Login");
+
+           
         }
     }
 }

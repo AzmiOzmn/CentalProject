@@ -9,6 +9,8 @@ using Cental.DataAccessLayer.Repositories;
 using Cental.EntityLayer.Entities;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,7 +33,17 @@ builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsi
 
 
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(option =>
+{
+    option.Filters.Add(new AuthorizeFilter()); // Her yeri authorize iþlemine sokuyoruz
+});
+
+builder.Services.ConfigureApplicationCookie(config =>
+{
+    config.LoginPath = "/Login/Index";
+    config.LogoutPath = "/Login/Logout";
+});
+
 
 var app = builder.Build();
 
@@ -48,6 +60,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

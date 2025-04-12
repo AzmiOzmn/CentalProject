@@ -4,6 +4,7 @@ using Cental.EntityLayer.Entities;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cental.WebUI.Controllers
 {
@@ -14,7 +15,7 @@ namespace Cental.WebUI.Controllers
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
             var profileEditDto = user.Adapt<ProfileEditDto>();
-           
+
             return View(profileEditDto);
         }
 
@@ -27,14 +28,31 @@ namespace Cental.WebUI.Controllers
             var succeed = await _userManager.CheckPasswordAsync(user, model.CurrentPassword);
             if (succeed)
             {
-                if(model.ImageFile != null)
+                if (model.ImageFile != null)
                 {
+                    try
+                    {
+                        model.ImageUrl = await _imageService.SaveImageAsycn(model.ImageFile);
+                    }
+                    catch(Exception ex)
+                    {
+                        ModelState.AddModelError(string.Empty, ex.Message);
+                        return View(model);
+                    }
+
+
+
                     model.ImageUrl = await _imageService.SaveImageAsycn(model.ImageFile);
                 }
 
-                var updateUser = model.Adapt<AppUser>();
-                var result = await _userManager.UpdateAsync(updateUser);
-                if(result.Succeeded)
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.Email = model.Email;
+                user.PhoneNumber = model.PhoneNumber;
+                user.ImageUrl = model.ImageUrl;
+
+                var result = await _userManager.UpdateAsync(user);
+                if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "AdminAbout");
                 }

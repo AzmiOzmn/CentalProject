@@ -21,7 +21,12 @@ namespace Cental.BusinessLayer.Concrete
             }
             var imageName = Guid.NewGuid() + extension;
             
-            var saveLocation = Path.Combine(currentDirectory, "wwwroot/images" , imageName);
+            var imageFolder = Path.Combine(currentDirectory, "wwwroot/images");
+            if(!Directory.Exists(imageFolder))
+            {
+                Directory.CreateDirectory(imageFolder);
+            }
+            var saveLocation = Path.Combine(imageFolder , imageName);
             var stream = new FileStream(saveLocation, FileMode.Create);
             await file.CopyToAsync(stream);
             return "/images/" + imageName;

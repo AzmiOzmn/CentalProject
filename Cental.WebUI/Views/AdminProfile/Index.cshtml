@@ -7,11 +7,12 @@
 <form method="post" enctype="multipart/form-data">
 
     <div class="text-center">
-        <img src="@Model.ImageUrl" style="width:100px;height:100px" />
+        <img src="@Model.ImageUrl" style="width:100px;height:100px" alt="Profil Resmi" />
+        <input type="file" asp-for="ImageFile" accept="image/png image/jpg image/jpeg" />
     </div>
 
 
-
+    <input type="hidden" asp-for="ImageUrl" />
     <label>Ad</label>
     <input type="text" class="form-control" asp-for="FirstName"  required/>
     <br />
@@ -24,6 +25,16 @@
     <label>Telefon Numarası</label>
     <input type="text" class="form-control" asp-for="PhoneNumber" required />
     <br />
+    <label>Bilgileri Güncellemek İçin Şifre Girin</label>
+    <input type="password" asp-for="CurrentPassword" class="form-control" required />
+    <br />
+
+    <p class="text-danger">
+        @Html.ValidationSummary()
+    </p>
+
+    <button class="btn btn-primary">Bilgileri Güncelle</button>
+
 
 
 </form>

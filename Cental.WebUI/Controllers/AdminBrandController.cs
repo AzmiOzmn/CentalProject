@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Cental.BusinessLayer.Abstract;
 using Cental.EntityLayer.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cental.WebUI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminBrandController(IBrandService _brandService, IMapper _mapper) : Controller
 
     {

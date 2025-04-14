@@ -19,7 +19,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<CentalContext>();
 
-builder.Services.AddIdentity<AppUser, AppRole>(cfg=>
+builder.Services.AddIdentity<AppUser, AppRole>(cfg =>
 {
     cfg.User.RequireUniqueEmail = true;
 }).AddEntityFrameworkStores<CentalContext>().AddErrorDescriber<CustomErrorDescriber>(); // Identity Config 
@@ -29,7 +29,7 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddServiceRegistrations();
 
 
-builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters().AddValidatorsFromAssemblyContaining<BrandValidater>() ; // Validater WebUI Katmanýnda olmadýðý için 
+builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters().AddValidatorsFromAssemblyContaining<BrandValidater>(); // Validater WebUI Katmanýnda olmadýðý için 
 
 
 
@@ -42,6 +42,8 @@ builder.Services.ConfigureApplicationCookie(config =>
 {
     config.LoginPath = "/Login/Index";
     config.LogoutPath = "/Login/Logout";
+    config.AccessDeniedPath = "/ErrorPage/AccessDenied";
+
 });
 
 
@@ -57,14 +59,23 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseStatusCodePagesWithRedirects("/ErrorPage/NotFound404"); // 404 hatasý için yönlendirme yapýyoruz
 
 app.UseRouting();
 
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseAuthentication(); // Kullanýcý doðrulama iþlemi yapýlýr
+app.UseAuthorization(); //  Kullanýcý yetkilendirme iþlemi
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+app.MapControllerRoute(
+  name: "areas",
+  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+);
+
+
 
 app.Run();

@@ -4,11 +4,6 @@ using Cental.DataAccessLayer.Abstract;
 using Cental.DataAccessLayer.Concrete;
 using Cental.DataAccessLayer.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cental.BusinessLayer.Extensions
 {
@@ -29,6 +24,10 @@ namespace Cental.BusinessLayer.Extensions
             services.AddScoped<ICarDal, EfCarDal>();
 
             services.AddScoped<IImageService, ImageService>();
+
+            services.AddScoped<IUserSocialService, UserSocialManager>();
+            services.AddScoped<IUserSocialDal, EfUserSocialDal>();
+
 
 
             services.AddScoped(typeof(IGenericDal<>), typeof(GenericRepository<>));

@@ -1,0 +1,65 @@
+﻿@model List<ResultUserSocialDto>
+
+
+@{
+    ViewData["Title"] = "Sosyal Medyalarım";
+    Layout = "~/Areas/Manager/Views/ManagerLayout/Index.cshtml";
+    int count = 0;
+}
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Sosyal Medya</th>
+        <th>İşlemler</th>
+
+    </tr>
+    @foreach (var item in Model)
+    {
+        count++;
+
+
+        <tr>
+            <td>@count</td>
+            <td>
+                <a href="@item.Url" target="_blank" i class="@item.Icon">@item.Title</a>
+            </td>
+            <td>
+                <button onclick="deleteSocial(@item.UserSocialId)" class="btn btn-danger">Sil</button>
+                <a asp-action="Update" asp-route-id="@item.UserSocialId" class="btn btn-info">Güncelle</a>
+            </td>
+
+        </tr>
+    }
+</table>
+
+<a asp-action="Insert" asp-controller="MySocial" asp-area="Manager" class="btn btn-primary">Yeni Sosyal Medya Ekle</a>
+
+<script>
+
+    function deleteSocial(id){
+
+        Swal.fire({
+            title: "Silmek istediğinize emin misiniz?",
+            text: "Bu İşlemi geri alamazsınız!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Evet, Sil!",
+            cancelButtonText:"İptal Et"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                window.location.href = "/Manager/MySocial/Delete/" + id;
+
+
+            }
+        });
+
+
+    }
+
+
+</script>

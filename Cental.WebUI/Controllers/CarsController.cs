@@ -1,53 +1,86 @@
 ﻿using Cental.BusinessLayer.Abstract;
 using Cental.DataAccessLayer.Context;
 using Cental.DtoLayer.Enums;
-using Cental.WebUI.Extansions;
+using Cental.EntityLayer.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Cental.WebUI.Controllers
 {
-    public class CarsController(ICarService carService, IBrandService brandService,CentalContext context) : Controller
+    [AllowAnonymous]
+    public class CarsController(ICarService _carService, IBrandService _brandService, CentalContext _context) : Controller
     {
         public IActionResult Index()
         {
-            return View();
+
+            if (TempData["filterCars"] != null)
+            {
+                var data = TempData["filterCars"].ToString();
+                if (data != null)
+                {
+
+                    var filterCars = JsonSerializer.Deserialize<List<Car>>(data, new JsonSerializerOptions
+                    {
+                        ReferenceHandler = ReferenceHandler.IgnoreCycles
+                    });
+
+
+
+                    return View(filterCars);
+
+                }
+            }
+
+            var values = _carService.TGetAll();
+            return View(values);
+
+
+
+
         }
 
-        public PartialViewResult FilterCars()
-        {
 
-            var cars = carService.TGetAll();
-
-            ViewBag.brands = (from x in cars
-                              select new SelectListItem
-                              {
-                                  Text = x.Brand.BrandName + " " + x.ModelName,
-                                  Value = x.Brand.BrandName + " " + x.ModelName
-                              }
-                              ).ToList();
-
-
-
-
-            ViewBag.gasTypes = GetEnumValues.GetEnums<GasTypes>();
-            ViewBag.gasTypes = GetEnumValues.GetEnums<GearTypes>();
-
-
-
-
-            return PartialView();
-        }
 
         [HttpPost]
+        public IActionResult FilterCars(string brand, string gear, string gas, int year)
+        {
 
-        //public IActionResult FilterCars(string car, string gear, int year, string gas)
-        //{
-        //    if (string.IsNullOrEmpty(car) || string.IsNullOrEmpty(car) || string.IsNullOrEmpty(gear)|| string.IsNullOrEmpty(gas) || year>0)
-        //    {
-        //        var  values = context.Cars.Where(x=> x.Brand.BrandName + " " + x.ModelName==car && )
-                    
-        //    }
-        //}
+            IQueryable<Car> values = _context.Cars.AsQueryable();
+
+            if (!string.IsNullOrEmpty(brand))
+            {
+                values = values.Where(x => x.Brand.BrandName == brand);
+
+
+            }
+
+            if (!string.IsNullOrEmpty(gear))
+            {
+                values = values.Where(x => x.GearType == gear);
+
+            }
+
+            if (!string.IsNullOrEmpty(gas))
+            {
+                values = values.Where(x => x.GasType == gas);
+
+            }
+            if (year > 0)
+            {
+                values = values.Where(x => x.Year >= year);
+
+            }
+
+            var filterList = values.ToList();
+
+            TempData["filterCars"] = JsonSerializer.Serialize(filterList, new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.IgnoreCycles
+            });
+            return RedirectToAction("Index");
+        }
     }
 }

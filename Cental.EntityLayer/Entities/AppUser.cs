@@ -17,7 +17,10 @@ namespace Cental.EntityLayer.Entities
         #region Navigation Properties UserSocial
         public virtual List<UserSocial> UserSocials { get; set; }
 
+
         #endregion
+
+        public virtual List<Booking>? Bookings { get; set; }
 
     }
 }

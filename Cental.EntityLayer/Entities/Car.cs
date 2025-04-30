@@ -30,5 +30,6 @@ namespace Cental.EntityLayer.Entities
         public virtual List<Review> Reviews { get; set; }
         #endregion
 
+        public virtual List<Booking> Bookings { get; set; }
     }
 }

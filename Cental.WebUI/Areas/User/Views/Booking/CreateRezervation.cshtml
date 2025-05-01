@@ -1,0 +1,46 @@
+﻿@using Cental.DtoLayer.BookingDtos
+@model InsertBookingDto
+@{
+    ViewData["Title"] = "Yeni Rezervasyon Oluştur";
+    Layout = "~/Areas/User/Views/UserLayout/Layout.cshtml";
+}
+
+<form method="post">
+
+    <input type="hidden" asp-for="UserId" value="@ViewBag.user" />
+
+    <label>Aracınızı Seçin</label>
+    <select asp-for="CarId" class="form-control">
+        <option selected>Aracınızı seçin</option>
+        @foreach (var car in ViewBag.SelectedCarList)
+        {
+            <option value="@car.Value">@car.Text</option>
+        }
+    </select>
+    <br />
+
+    <label>Alış Yeri</label>
+    <span class="fas fa-map-marker-alt"></span>
+    <input asp-for="PickupLocation" class="form-control" type="text" placeholder="Bir Şehir veya Havaalanı Girin">
+    <br />
+
+    <label>Bırakış Yeri</label>
+    <span class="fas fa-map-marker-alt"></span>
+    <input asp-for="DropOffLocation" class="form-control" type="text" placeholder="Bir Şehir veya Havaalanı Girin">
+    <br />
+
+    <label>Alış Tarihi</label>
+    <span class="fas fa-calendar-alt"></span>
+    <input asp-for="PickupDate" class="form-control" type="date" min="2024-01-01" value="2024-01-01" />
+    <br />
+
+    <label>Bırakış Tarihi</label>
+    <span class="fas fa-calendar-alt"></span>
+    <input asp-for="DropOffDate" class="form-control" type="date" min="2024-01-01" value="2024-01-01" />
+    <br />
+
+    <div class="text-center">
+        <button class="btn btn-success">Rezervasyon Ekle</button>
+    </div>
+
+</form>

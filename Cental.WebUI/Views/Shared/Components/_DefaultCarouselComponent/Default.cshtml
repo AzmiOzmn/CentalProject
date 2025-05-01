@@ -1,0 +1,50 @@
+﻿@model List<Banner>
+
+@*
+    _DefaultCarouselComponent
+*@
+@{
+    int count = 0;
+}
+
+<!-- Carousel Start -->
+<div class="header-carousel">
+    <div id="carouselId" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+        <ol class="carousel-indicators">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <li data-bs-target="#carouselId" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")"></li>
+            }
+        </ol>
+
+        <div class="carousel-inner" role="listbox">
+            @foreach (var banner in Model)
+            {
+                count++;
+                <div class="carousel-item @(count == 1 ? "active" : "")">
+                    <img src="@banner.ImageUrl" class="img-fluid w-100" alt="First slide" />
+                    <div class="carousel-caption">
+                        <div class="container py-4">
+                            <div class="row g-5">
+                                <div class="col-lg-6 fadeInLeft animated" data-animation="fadeInLeft" data-delay="1s" style="animation-delay: 1s;">
+                                    <div class="bg-secondary rounded p-5">
+                                        @await Component.InvokeAsync("_DefaultReservationComponent", new Booking())
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 d-none d-lg-flex fadeInRight animated" data-animation="fadeInRight" data-delay="1s" style="animation-delay: 1s;">
+                                    <div class="text-start">
+                                        <h1 class="display-5 text-white">
+                                            @banner.Title
+                                        </h1>
+                                        <p>@banner.Description</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- Carousel End -->

@@ -1,0 +1,100 @@
+﻿@model Booking
+@*
+    _DefaultReservationComponent
+*@
+
+<h4 class="text-white mb-4">REZERVASYONA BAŞLAYIN</h4>
+<form asp-area="User" asp-controller="Booking" asp-action="CreateRezervation" method="post">
+    <div class="row g-3">
+        <div class="col-12">
+            <select asp-for="CarId" class="form-select" aria-label="">
+                <option selected>Aracınızı seçin</option>
+                @foreach (var car in ViewBag.CarList)
+                {
+                    <option value="@car.Value">@car.Text</option>
+                }
+            </select>
+        </div>
+        <div class="col-12">
+            <div class="input-group">
+                <div class="d-flex align-items-center bg-light text-body rounded-start p-2">
+                    <span class="fas fa-map-marker-alt"></span> <span class="ms-1">Alış Yeri </span>
+                </div>
+                <input asp-for="PickupLocation" class="form-control" type="text" placeholder="Bir Şehir veya Havaalanı Girin" aria-label="Bir Şehir veya Havaalanı Girin">
+            </div>
+        </div>
+        <div class="col-12">
+            <a href="#" class="text-start text-white d-block mb-2">
+                Farklı bir bırakma yeri mi istiyorsunuz?
+            </a>
+            <div class="input-group">
+                <div class="d-flex align-items-center bg-light text-body rounded-start p-2">
+                    <span class="fas fa-map-marker-alt"></span><span class="ms-1">Bırakış Yeri</span>
+                </div>
+                <input asp-for="DropOffLocation" class="form-control" type="text" placeholder="Bir Şehir veya Havaalanı Girin" aria-label="Bir Şehir veya Havaalanı Girin">
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="input-group">
+                <div class="d-flex align-items-center bg-light text-body rounded-start p-2">
+                    <span class="fas fa-calendar-alt"></span><span class="ms-1">Alış Tarihi</span>
+                </div>
+                <input class="form-control" type="date" min="2024-01-01" value="2024-01-01" asp-for="PickupDate">
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="input-group">
+                <div class="d-flex align-items-center bg-light text-body rounded-start p-2">
+                    <span class="fas fa-calendar-alt"></span><span class="ms-1">Bırakış Tarihi</span>
+                </div>
+                <input class="form-control" type="date" min="2024-01-01" value="2024-01-01" asp-for="DropOffDate">
+            </div>
+        </div>
+        <div>
+            @Html.ValidationSummary()
+        </div>
+        <div class="col-12">
+            <button onclick="rezervation()" class="btn btn-light w-100 py-2">Şimdi Rezervasyon Yap</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const isAuthenticated = @ViewBag.IsUserAuthenticated.ToString().ToLower(); // Get authentication status
+
+        document.querySelector("form").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent immediate form submission
+
+            if (!isAuthenticated) {
+                Swal.fire({
+                    title: "Giriş Yapmanız Gerekiyor",
+                    text: "Lütfen rezervasyon yapmadan önce giriş yapın.",
+                    icon: "error",
+                    confirmButtonText: "Tamam"
+                });
+                return; // Stop further actions if user is not authenticated
+            }
+
+            Swal.fire({
+                title: "Rezervasyonunuzu göndermek ister misiniz?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Evet, gönder",
+                cancelButtonText: "Hayır, vazgeç"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Başarılı!",
+                        text: "Rezervasyonunuz bizlere ulaştı, en kısa zamanda geri dönüş yapacağız.",
+                        icon: "success"
+                    }).then(() => {
+                        event.target.submit(); // Submit the form after confirmation
+                    });
+                }
+            });
+        });
+    });
+</script>

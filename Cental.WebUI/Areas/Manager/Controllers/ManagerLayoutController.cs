@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Cental.EntityLayer.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Cental.WebUI.Areas.Manager.Controllers
 {
     [Area("Manager")]
-    public class ManagerLayoutController : Controller
+    public class ManagerLayoutController() : Controller
     {
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             return View();
         }

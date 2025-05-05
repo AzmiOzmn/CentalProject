@@ -6,9 +6,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Cental.WebUI.Controllers
+namespace Cental.WebUI.Areas.Manager.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Manager")]
+    [Area("Manager")] // Manager area belirtildi
     public class AdminProfileController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -57,7 +58,7 @@ namespace Cental.WebUI.Controllers
                 var result = await _userManager.UpdateAsync(user);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "AdminAbout");
+                    return RedirectToAction("Index", "Booking");
                 }
 
                 foreach (var error in result.Errors)

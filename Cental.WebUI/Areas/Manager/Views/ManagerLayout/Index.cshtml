@@ -44,48 +44,7 @@
 
 
 
-	<nav class="pcoded-navbar  ">
-		<div class="navbar-wrapper  ">
-			<div class="navbar-content scroll-div ">
-
-				<div class="">
-					<div class="main-menu-header">
-						<img src="ManagerImageUrl" alt="User-Profile-Image" style="border-radius:50%;height:50px;width:50px;">
-						<div class="user-details">
-							<span>Manager Name Surname</span>
-							<div id="more-details">Manager<i class="fa fa-chevron-down m-l-5"></i></div>
-						</div>
-					</div>
-					<div class="collapse" id="nav-user-link">
-						<ul class="list-unstyled">
-							<li class="list-group-item"><a href="/Manager/Profile/Index"><i class="feather icon-user m-r-5"></i>Profil Bilgileri</a></li>
-							<li class="list-group-item"><a href="/Default/Index"><i class="feather icon-settings m-r-5"></i>Siteye Git</a></li>
-							<li class="list-group-item"><a href="/Login/Logout"><i class="feather icon-log-out m-r-5"></i>Çıkış Yap</a></li>
-						</ul>
-					</div>
-				</div>
-
-				<ul class="nav pcoded-inner-navbar ">
-					<li class="nav-item pcoded-menu-caption">
-						<label>Menü</label>
-					</li>
-					<li class="nav-item">
-						<a href="#" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
-					</li>
-					<li class="nav-item">
-						<a href="/Manager/Car/Index" class="nav-link "><span class="pcoded-micon"><i class="fa fa-taxi" aria-hidden="true"></i></span><span class="pcoded-mtext">Araçlar</span></a>
-					</li>
-					
-
-
-
-				</ul>
-
-
-
-			</div>
-		</div>
-	</nav>
+	@await Component.InvokeAsync("_ManagerLayoutSidebarComponent")
 
 	<!-- [ navigation menu ] end -->
 	<!-- [ Header ] start -->

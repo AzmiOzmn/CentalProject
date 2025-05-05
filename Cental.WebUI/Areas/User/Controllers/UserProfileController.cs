@@ -6,20 +6,22 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Cental.WebUI.Controllers
+namespace Cental.WebUI.Areas.User.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    public class AdminProfileController : Controller
+    [Authorize(Roles = "User")]
+    [Area("User")] // User alanını belirt
+    public class UserProfileController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IImageService _imageService;
 
-        public AdminProfileController(UserManager<AppUser> userManager, IImageService imageService)
+        public UserProfileController(UserManager<AppUser> userManager, IImageService imageService)
         {
             _userManager = userManager;
             _imageService = imageService;
         }
 
+        // Profil sayfasını görüntüleme
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
@@ -27,6 +29,7 @@ namespace Cental.WebUI.Controllers
             return View(profileEditDto);
         }
 
+        // Profil güncelleme işlemi
         [HttpPost]
         public async Task<IActionResult> Index(ProfileEditDto model)
         {
@@ -48,6 +51,7 @@ namespace Cental.WebUI.Controllers
                     }
                 }
 
+                // Kullanıcıyı güncelleme
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
                 user.Email = model.Email;
@@ -57,7 +61,7 @@ namespace Cental.WebUI.Controllers
                 var result = await _userManager.UpdateAsync(user);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "AdminAbout");
+                    return RedirectToAction("Index", "UserAbout"); // Burada UserAbout Controller'ına yönlendiriliyor.
                 }
 
                 foreach (var error in result.Errors)

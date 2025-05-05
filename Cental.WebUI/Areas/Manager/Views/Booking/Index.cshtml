@@ -1,8 +1,65 @@
-﻿
+﻿@using Cental.DtoLayer.BookingDtos
+@model List<ResultBookingDto>
+
 @{
-    ViewData["Title"] = "Kiralama Sayfası";
+    ViewData["Title"] = "Rezervasyonlar";
     Layout = "~/Areas/Manager/Views/ManagerLayout/Index.cshtml";
 }
+@{
+    int count = 0;
+}
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Seçilen Araç</th>
+        <th>Alma Noktası</th>
+        <th>Bırakma Noktası</th>
+        <th>Alma Tarihi</th>
+        <th>Bırakma Tarihi</th>
+        <th>Durumu</th>
+        <th>Onayla/Reddet</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
+    </tr>
+
+    @foreach (var booking in Model)
+    {
+        count++;
+        <tr>
+            <td>@count</td>
+            <td>@booking.Car.ModelName</td>
+            <td>@booking.PickupLocation</td>
+            <td>@booking.DropOffLocation</td>
+            <td>@booking.PickupDate.ToShortDateString()</td>
+            <td>@booking.DropOffDate.ToShortDateString()</td>
+            <td>
+                @if (booking.IsApproved == true)
+                {
+                    <span class="text-info fw-bold">Onaylandı</span>
+                }
+                else if (booking.IsApproved == false)
+                {
+                    <span class="text-danger fw-bold">Reddedildi</span>
+                }
+                else
+                {
+                    <span class="text-warning fw-bold">Beklemede</span>
+                }
+            </td>
+
+            <td>
+                <a class="btn btn-outline-success" asp-action="ApproveRezervation" asp-controller="Booking" asp-route-id="@booking.BookingId">Onayla</a>
+                <a class="btn btn-outline-danger" asp-action="DeclineRezervation" asp-controller="Booking" asp-route-id="@booking.BookingId">Reddet</a>
+                <a class="btn btn-outline-warning" asp-action="WaitingRezervation" asp-controller="Booking" asp-route-id="@booking.BookingId">Beklemeye Al</a>
+            </td>
 
 
+            <td><a asp-action="DeleteRezervation" asp-controller="Booking" asp-area="Manager" asp-route-id="@booking.BookingId" class="btn btn-danger">Sil</a></td>
+            <td><a asp-action="UpdateRezervation" asp-controller="Booking" asp-area="Manager" asp-route-id="@booking.BookingId" class="btn btn-info">Güncelle</a></td>
+        </tr>
+    }
+</table>
+<div class="text-center">
+    <a asp-action="CreateRezervation" asp-controller="Booking" asp-area="Manager" class="btn btn-primary">Yeni Rezervasyon Oluştur</a>
+</div>
 

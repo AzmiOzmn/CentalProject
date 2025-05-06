@@ -1,0 +1,65 @@
+﻿@model List<ResultFeatureDto>
+
+<div class="container-fluid feature py-5">
+    <div class="container py-5">
+        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
+            <h1 class="display-5 text-capitalize mb-3">Cental <span class="text-primary">Hizmetler</span></h1>
+            <p class="mb-0">
+                Müşteri memnuniyetini ön planda tutarak, konforlu ve güvenli bir araç kiralama deneyimi sunuyoruz.
+            </p>
+        </div>
+
+        <div class="row g-4 align-items-center">
+            <!-- Sol Özellikler -->
+            <div class="col-xl-4">
+                <div class="row gy-4 gx-0">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        if (i == 0 || i == 1) // İlk iki özellik sol tarafta
+                        {
+                            <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
+                                <div class="feature-item d-flex">
+                                    <div class="feature-icon">
+                                        <span class="@Model[i].Icon"></span>
+                                    </div>
+                                    <div class="ms-4">
+                                        <h5 class="mb-3">@Model[i].Title</h5>
+                                        <p class="mb-0">@Model[i].Description</p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+            <!-- Araba Ortada -->
+            <div class="col-lg-12 col-xl-4 text-center wow fadeInUp" data-wow-delay="0.2s">
+                <img src="~/Cental-1.0.0/img/features-img.png" class="img-fluid" alt="Araba" style="max-height: 300px;" />
+            </div>
+
+            <!-- Sağ Özellikler -->
+            <div class="col-xl-4">
+                <div class="row gy-4 gx-0">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        if (i == 2 || i == 3) // Diğer iki özellik sağ tarafta
+                        {
+                            <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
+                                <div class="feature-item d-flex">
+                                    <div class="feature-icon">
+                                        <span class="@Model[i].Icon"></span>
+                                    </div>
+                                    <div class="ms-4">
+                                        <h5 class="mb-3">@Model[i].Title</h5>
+                                        <p class="mb-0">@Model[i].Description</p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

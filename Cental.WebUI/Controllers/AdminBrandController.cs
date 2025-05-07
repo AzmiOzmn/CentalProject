@@ -13,7 +13,7 @@ namespace Cental.WebUI.Controllers
         {
             var brands = _brandService.TGetAll().AsQueryable();
             var values = new PagedList<Brand>(brands, page, pageSize);
-            return View(values);
+            return View(values); 
         }
 
         public IActionResult DeleteBrand(int id)

@@ -34,6 +34,8 @@ namespace Cental.BusinessLayer.Extensions
             services.AddScoped<IFeatureService, FeatureManager>();
             services.AddScoped<IFeatureDal, EfFeatureDal>();
 
+            services.AddScoped<IServiceSevice, ServiceManager>();
+            services.AddScoped<IServiceDal, EfServiceDal>();
 
 
             services.AddScoped(typeof(IGenericDal<>), typeof(GenericRepository<>));

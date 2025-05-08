@@ -37,6 +37,12 @@ namespace Cental.BusinessLayer.Extensions
             services.AddScoped<IServiceSevice, ServiceManager>();
             services.AddScoped<IServiceDal, EfServiceDal>();
 
+            services.AddScoped<ITestimonialService, TestimonialManager>();
+            services.AddScoped<ITestimonialDal, EfTestimonialDal>();
+
+            services.AddScoped<IProcessService, ProcessManager>();
+            services.AddScoped<IProcessDal, EfProcessDal>();
+
 
             services.AddScoped(typeof(IGenericDal<>), typeof(GenericRepository<>));
             services.AddScoped(typeof(IGenericService<>), typeof(IGenericManager<>));

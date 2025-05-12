@@ -1,0 +1,36 @@
+﻿@model List<ResultFeatureDto>
+@{
+    ViewData["Title"] = "Özellikler";
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+    int count = 0;
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Başlık</th>
+        <th>Açıklama</th>
+        <th>İkon</th>
+
+
+    </tr>
+    @foreach (var item in Model)
+    {
+        count++;
+        <tr>
+            <th>@count</th>
+            <th>@item.Title</th>
+            <th>@item.Description</th>
+            <th>@item.Icon</th>
+            <th>
+                <a asp-action="Delete" asp-route-id="@item.FeatureId" class="btn btn-danger">Sil</a>
+                <a asp-action="Update" asp-route-id="@item.FeatureId" class="btn btn-info">Güncelle</a>
+            </th>
+
+        </tr>
+    }
+</table>
+
+<a asp-action="Insert" asp-controller="AdminService" class="btn btn-primary">Yen Özellik Ekle</a>
+
+

@@ -10,6 +10,7 @@ using Cental.EntityLayer.Entities;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using System.Reflection;
 
@@ -18,6 +19,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddDbContext<CentalContext>();
+
+
 
 builder.Services.AddIdentity<AppUser, AppRole>(cfg =>
 {

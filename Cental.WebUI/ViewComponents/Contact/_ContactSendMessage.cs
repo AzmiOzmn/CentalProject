@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Cental.BusinessLayer.Abstract;
+using Cental.DataAccessLayer.Context;
+using Cental.DtoLayer.MessageDtos;
+using Cental.EntityLayer.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Cental.WebUI.ViewComponents.Contact
 {
@@ -6,7 +11,7 @@ namespace Cental.WebUI.ViewComponents.Contact
     {
         public IViewComponentResult Invoke()
         {
-            return View();
+            return View(new CreateMessageDto());
         }
     }
 }

@@ -1,0 +1,23 @@
+﻿@using Cental.DtoLayer.MessageDtos
+@model ResultMessageDto
+@{
+    ViewData["Title"] = "Mesaj Detayı";
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+}
+
+<h2>Mesaj Detayı</h2>
+
+<div class="card">
+    <div class="card-header">
+        <strong>@Model.Name</strong> - <span class="text-muted">@Model.Email</span>
+    </div>
+    <div class="card-body">
+        <p><strong>Konu:</strong> @Model.Subject</p>
+        <p><strong>Mesaj İçeriği:</strong></p>
+        <p>@Model.Comment</p>
+    </div>
+    <div class="card-footer">
+        <a href="/AdminMessage/Index" class="btn btn-outline-primary btn-sm">Geri Dön</a>
+        <a href="/AdminMessage/DeleteMessage/@Model.MessageId" class="btn btn-danger btn-sm float-end">Sil</a>
+    </div>
+</div>

@@ -13,13 +13,13 @@ namespace Cental.BusinessLayer.Extensions
         {
             services.AddScoped<IAboutService, AboutManager>();
             services.AddScoped<IAboutDal, EfAboutDal>();
-            
+
             services.AddScoped<IBrandService, BrandManager>();
             services.AddScoped<IBrandDal, EfBrandDal>();
-            
+
             services.AddScoped<IBannerService, BannerManager>();
             services.AddScoped<IBannerDal, EfBannerDal>();
-            
+
             services.AddScoped<ICarService, CarManager>();
             services.AddScoped<ICarDal, EfCarDal>();
 
@@ -42,6 +42,9 @@ namespace Cental.BusinessLayer.Extensions
 
             services.AddScoped<IProcessService, ProcessManager>();
             services.AddScoped<IProcessDal, EfProcessDal>();
+
+            services.AddScoped<IMessageService, MessageManager>();
+            services.AddScoped<IMessageDal, EfMessageDal>();
 
 
             services.AddScoped(typeof(IGenericDal<>), typeof(GenericRepository<>));

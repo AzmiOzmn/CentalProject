@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cental.WebUI.Controllers
 {
-    [AllowAnonymous]
-   
-    public class ServiceController(IServiceSevice service , IMapper mapper) : Controller
+    [Authorize(Roles ="Admin")]
+    
+    public class AdminServiceController(IServiceSevice serviceSevice , IMapper mapper) : Controller
     {
         public IActionResult Index()
         {
-            var values = service.TGetAll();
+            var values = serviceSevice.TGetAll();
             var services = mapper.Map<List<ResultServiceDto>>(values);
             return View(services);
         }

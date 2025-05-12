@@ -1,0 +1,31 @@
+﻿@model List<Cental.EntityLayer.Entities.AppUser>
+
+@{
+    ViewData["Title"] = "Manager Rolüne Sahip Kullanıcılar";
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+    int count = 0;
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Kullanıcı Adı</th>
+        <th>Email</th>
+        <th>İşlemler</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        count++;
+        <tr>
+            <td>@count</td>
+            <td>@item.UserName</td>
+            <td>@item.Email</td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Sil</a>
+                <a href="/RoleAssign/Index"  class="btn btn-primary">Yeni Rol Ata</a>
+            </td>
+        </tr>
+    }
+</table>

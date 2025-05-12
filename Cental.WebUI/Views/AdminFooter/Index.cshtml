@@ -1,0 +1,40 @@
+﻿@model List<FooterContact>
+@{
+    ViewData["Title"] = "Footer";
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+    int count = 0;
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Açıklama</th>
+        <th>Email</th>
+        <th>Telefon Numarası</th>
+        <th>Fax Numarası</th>
+
+
+    </tr>
+    @foreach (var item in Model)
+    {
+        count++;
+        <tr>
+            <th>@count</th>
+            <th>@item.Description</th>
+            <th>@item.Email</th>
+            <th>@item.PhoneNumber</th>
+            <th>@item.FaxNumber</th>
+            <th>
+                <a asp-action="Delete" asp-route-id="@item.FooterContactId" class="btn btn-danger">Sil</a>
+                <a asp-action="Update" asp-route-id="@item.FooterContactId" class="btn btn-info">Güncelle</a>
+            </th>
+
+        </tr>
+    }
+</table>
+
+<a asp-action="Insert" asp-controller="AdminService" class="btn btn-primary">Ekle</a>
+
+
+
+

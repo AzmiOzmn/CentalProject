@@ -11,11 +11,14 @@
 <table class="table table-bordered">
     <tr>
         <th>#</th>
+
         <th>Seçilen Araç</th>
         <th>Alma Noktası</th>
         <th>Bırakma Noktası</th>
         <th>Alma Tarihi</th>
+
         <th>Bırakma Tarihi</th>
+        <th>Günlük Fiyatı</th>
         <th>Durumu</th>
         <th>Onayla/Reddet</th>
         <th>Sil</th>
@@ -27,11 +30,13 @@
         count++;
         <tr>
             <td>@count</td>
+
             <td>@booking.Car.ModelName</td>
             <td>@booking.PickupLocation</td>
             <td>@booking.DropOffLocation</td>
             <td>@booking.PickupDate.ToShortDateString()</td>
             <td>@booking.DropOffDate.ToShortDateString()</td>
+            <td>@booking.Car.Price</td>
             <td>
                 @if (booking.IsApproved == true)
                 {

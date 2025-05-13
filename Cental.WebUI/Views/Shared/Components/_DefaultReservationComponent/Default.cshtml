@@ -39,7 +39,7 @@
                 <div class="d-flex align-items-center bg-light text-body rounded-start p-2">
                     <span class="fas fa-calendar-alt"></span><span class="ms-1">Alış Tarihi</span>
                 </div>
-                <input class="form-control" type="date" min="2024-01-01" value="2024-01-01" asp-for="PickupDate">
+                <input class="form-control" type="date" min="2024-01-01" value="@DateTime.Today.ToString("yyyy-MM-dd")" asp-for="PickupDate">
             </div>
         </div>
         <div class="col-12">
@@ -47,7 +47,7 @@
                 <div class="d-flex align-items-center bg-light text-body rounded-start p-2">
                     <span class="fas fa-calendar-alt"></span><span class="ms-1">Bırakış Tarihi</span>
                 </div>
-                <input class="form-control" type="date" min="2024-01-01" value="2024-01-01" asp-for="DropOffDate">
+                <input class="form-control" type="date" min="2024-01-01" value="@DateTime.Today.ToString("yyyy-MM-dd")" asp-for="DropOffDate">
             </div>
         </div>
         <div>

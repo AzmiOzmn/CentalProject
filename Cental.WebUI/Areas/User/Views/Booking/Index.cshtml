@@ -1,57 +1,67 @@
 ﻿@using Cental.DtoLayer.BookingDtos
+@using Cental.DtoLayer.ReviewDtos
 @model List<ResultBookingDto>
 
 @{
     ViewData["Title"] = "Rezervasyonlar";
     Layout = "~/Areas/User/Views/UserLayout/Layout.cshtml";
-}
-
-@{
     int count = 0;
 }
-<table class="table table-bordered">
-    <tr>
-        <th>#</th>
-        <th>Seçilen Araç</th>
-        <th>Alma Noktası</th>
-        <th>Bırakma Noktası</th>
-        <th>Alma Tarihi</th>
-        <th>Bırakma Tarihi</th>
-        <th>Durumu</th>
-        <th>Sil</th>
-        <th>Güncelle</th>
-    </tr>
 
-    @foreach (var booking in Model)
-    {
-        count++;
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
         <tr>
-            <td>@count</td>
-            <td>@booking.Car.ModelName @booking.Car.Brand.BrandName</td>
-            <td>@booking.PickupLocation</td>
-            <td>@booking.DropOffLocation</td>
-            <td>@booking.PickupDate.ToShortDateString()</td>
-            <td>@booking.DropOffDate.ToShortDateString()</td>
-            <td>
-                @if (booking.IsApproved == true)
-                {
-                    <span class="text-info fw-bold">Onaylandı</span>
-                }
-                else if (booking.IsApproved == false)
-                {
-                    <span class="text-danger fw-bold">Reddedildi</span>
-                }
-                else
-                {
-                    <span class="text-warning fw-bold">Beklemede</span>
-                }
-            </td>
-
-            <td><a asp-action="DeleteRezervation" asp-controller="Booking" asp-area="User" asp-route-id="@booking.BookingId" class="btn btn-danger">Sil</a></td>
-            <td><a asp-action="UpdateRezervation" asp-controller="Booking" asp-area="User" asp-route-id="@booking.BookingId" class="btn btn-info">Güncelle</a></td>
+            <th>#</th>
+            <th>Seçilen Araç</th>
+            <th>Alma Noktası</th>
+            <th>Bırakma Noktası</th>
+            <th>Alma Tarihi</th>
+            <th>Bırakma Tarihi</th>
+            <th>Durumu</th>
+            
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var booking in Model)
+        {
+            count++;
+            <tr>
+                <td>@count</td>
+                <td>@booking.Car?.ModelName @booking.Car?.Brand?.BrandName</td>
+                <td>@booking.PickupLocation</td>
+                <td>@booking.DropOffLocation</td>
+                <td>@booking.PickupDate.ToShortDateString()</td>
+                <td>@booking.DropOffDate.ToShortDateString()</td>
+                <td>
+                    @if (booking.IsApproved == true)
+                    {
+                        <span class="badge bg-success">Onaylandı</span>
+
+                        @if (booking.Car?.Reviews == null || !booking.Car.Reviews.Any())
+                        {
+                            <br />
+                            <div class="mt-2">
+                                <a href="@Url.Action("RateCar", "Booking", new { area = "User", bookingId = booking.BookingId })" class="btn btn-primary btn-sm">
+                                    Araç Puanla
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            <br />
+                            <span class="text-info">Puan: @booking.Car.Reviews.FirstOrDefault().Rating</span>
+                        }
+                    }
+                    else if (booking.IsApproved == false)
+                    {
+                        <span class="badge bg-danger">Reddedildi</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning">Beklemede</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
-<div class="text-center">
-    <a asp-action="CreateRezervation" asp-controller="Booking" asp-area="User" class="btn btn-primary">Yeni Rezervasyon Oluştur</a>
-</div>

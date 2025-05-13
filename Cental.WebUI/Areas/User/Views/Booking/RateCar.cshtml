@@ -1,0 +1,42 @@
+﻿@using Cental.DtoLayer.ReviewDtos
+@model InsertReviewDto
+
+@{
+    ViewData["Title"] = "Araç Puanla";
+    Layout = "~/Areas/User/Views/UserLayout/Layout.cshtml";  // Layout ekledim
+}
+
+<div class="container mt-5">
+    <h3 class="text-center mb-4">Araç Puanla</h3>
+
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <form method="post">
+                <input type="hidden" name="BookingId" value="@Model.ReviewId" />
+                <input type="hidden" name="CarId" value="@Model.CarId" />
+
+                <div class="mb-4">
+                    <label for="rating" class="form-label fs-5">Puan:</label>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <select name="Rating" class="form-select form-select-lg" id="rating">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <div class="ms-3">
+                            <small class="text-muted">Seçilen puan ile aracı değerlendirin.</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-lg px-5 py-3">Puan Ver</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

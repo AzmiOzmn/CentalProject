@@ -31,12 +31,12 @@
 
     <label>Alış Tarihi</label>
     <span class="fas fa-calendar-alt"></span>
-    <input asp-for="PickupDate" class="form-control" type="date" min="2024-01-01" value="2024-01-01" />
+    <input asp-for="PickupDate" class="form-control" type="date" min="2024-01-01" value="@DateTime.Today.ToString("yyyy-MM-dd")"  />
     <br />
 
     <label>Bırakış Tarihi</label>
     <span class="fas fa-calendar-alt"></span>
-    <input asp-for="DropOffDate" class="form-control" type="date" min="2024-01-01" value="2024-01-01" />
+    <input asp-for="DropOffDate" class="form-control" type="date" min="2024-01-01" value="@DateTime.Today.ToString("yyyy-MM-dd")"  />
     <br />
 
     <div class="text-center">

@@ -46,6 +46,9 @@ namespace Cental.BusinessLayer.Extensions
             services.AddScoped<IMessageService, MessageManager>();
             services.AddScoped<IMessageDal, EfMessageDal>();
 
+            services.AddScoped<IReviewService, ReviewManager>();
+            services.AddScoped<IReviewDal, EfReviewDal>();
+
 
             services.AddScoped(typeof(IGenericDal<>), typeof(GenericRepository<>));
             services.AddScoped(typeof(IGenericService<>), typeof(IGenericManager<>));

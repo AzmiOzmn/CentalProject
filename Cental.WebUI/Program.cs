@@ -1,16 +1,9 @@
-using Cental.BusinessLayer.Abstract;
-using Cental.BusinessLayer.Concrete;
 using Cental.BusinessLayer.Extensions;
 using Cental.BusinessLayer.Validaters;
-using Cental.DataAccessLayer.Abstract;
-using Cental.DataAccessLayer.Concrete;
 using Cental.DataAccessLayer.Context;
-using Cental.DataAccessLayer.Repositories;
 using Cental.EntityLayer.Entities;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using System.Reflection;
 

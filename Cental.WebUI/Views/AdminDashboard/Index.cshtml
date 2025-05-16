@@ -1,0 +1,251 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/AdminLayout/Layout.cshtml";
+}
+
+<div class="col-md-12">
+    <div class="row" style="height:auto;width:auto">
+
+        <!-- Toplam Araç Sayısı Kartı -->
+        <div class="col-xl-3 col-md-6">
+            <div class="card flat-card">
+                <div class="row-table">
+                    <div class="col-sm-6 card-body br">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <i class="icon fas fa-car text-c-green mb-1 d-block"></i>
+                            </div>
+                            <div class="col-sm-8 text-md-center">
+                                <h5>@ViewBag.CarCount</h5>
+                                <span>Araç Sayısı</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toplam Kullanıcı Sayısı Kartı -->
+        <div class="col-xl-3 col-md-6">
+            <div class="card flat-card">
+                <div class="row-table">
+                    <div class="col-sm-6 card-body br">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <i class="icon feather icon-users text-c-blue mb-1 d-block"></i>
+                            </div>
+                            <div class="col-sm-8 text-md-center">
+                                <h5>@ViewBag.UserCount</h5>
+                                <span>Kullanıcı Sayısı</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ortalama Araç Puanı Kartı -->
+        <div class="col-xl-3 col-md-6">
+            <div class="card flat-card">
+                <div class="row-table">
+                    <div class="col-sm-6 card-body br">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <i class="icon feather icon-star text-c-yellow mb-1 d-block"></i>
+                            </div>
+                            <div class="col-sm-8 text-md-center">
+                                <h5>@ViewBag.AverageRating</h5>
+                                <span>Ortalama Araç Puanı</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manager Sayısı Kartı -->
+        <div class="col-xl-3 col-md-6">
+            <div class="card flat-card">
+                <div class="row-table">
+                    <div class="col-sm-6 card-body br">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <i class="icon feather icon-user-check text-c-red mb-1 d-block"></i>
+                            </div>
+                            <div class="col-sm-8 text-md-center">
+                                <h5>@ViewBag.ManagerCount</h5>
+                                <span>Müşteri Danışmanı Sayısı</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Popüler Araç Modeli Kartı -->
+        <div class="col-xl-3 col-md-6">
+            <div class="card flat-card">
+                <div class="row-table">
+                    <div class="col-sm-6 card-body br">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <i class="icon fas fa-star  text-c-green mb-1 d-block"></i>
+                            </div>
+                            <div class="col-sm-8 text-md-center">
+                                <h5>@ViewBag.PopularCarModel</h5>
+                                <span>En Çok Talep Edilen Araç</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toplam Rezervasyon Sayısı Kartı -->
+        <div class="col-xl-3 col-md-6">
+            <div class="card flat-card">
+                <div class="row-table">
+                    <div class="col-sm-6 card-body br">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <i class="icon feather icon-users text-c-blue mb-1 d-block"></i>
+                            </div>
+                            <div class="col-sm-8 text-md-center">
+                                <h5>@ViewBag.BookingCount</h5>
+                                <span>Toplam Rezervasyon Sayısı</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ortalama Kiralama Fiyatı Kartı -->
+        <div class="col-xl-3 col-md-6">
+            <div class="card flat-card">
+                <div class="row-table">
+                    <div class="col-sm-6 card-body br">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <i class="icon fas fa-dollar-sign text-c-yellow mb-1 d-block"></i>
+                            </div>
+                            <div class="col-sm-8 text-md-center">
+                                <h5>@ViewBag.AvgPrice</h5>
+                                <span>Ortalama Kiralama Fiyatı</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- En Çok Kullanılan Rota Kartı -->
+        <div class="col-xl-3 col-md-6">
+            <div class="card flat-card">
+                <div class="row-table">
+                    <div class="col-sm-6 card-body br">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <i class="icon fas fa-route text-c-yellow mb-1 d-block"></i>
+                            </div>
+                            <div class="col-sm-8 text-md-center">
+                                <h5>@ViewBag.PopularRoute</h5>
+                                <span>En Çok Kullanılan Rota</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Müşteri Yorumları -->
+    <div class="row mt-4">
+        <div class="col-xl-12">
+            <div class="card flat-card">
+                <div class="card-header">
+                    <h5>Müşteri Yorumları</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        @foreach (var testimonial in ViewBag.CustomerTestimonials as IEnumerable<Testimonial>)
+                        {
+                            <div class="col-md-4">
+                                <div class="testimonial">
+                                    <p><img src="@testimonial.ImageUrl" style="width:75px;height:75px;" /></p>
+                                    <p><strong>@testimonial.Name</strong></p>
+                                    <p>@testimonial.Comment</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <h5>Son Eklenen Araçlar</h5>
+    <div class="card">
+        <div class="card-header">
+            <h6 class="mb-0">Araçlar</h6>
+            <div class="card-header-right">
+                <div class="btn-group card-option">
+                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="feather icon-more-horizontal"></i>
+                    </button>
+                    <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                        <li class="dropdown-item full-card"><a href="#!"><i class="feather icon-maximize"></i> Tam ekran</a></li>
+                        <li class="dropdown-item minimize-card"><a href="#!"><i class="feather icon-minus"></i> Küçült</a></li>
+                        <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> Yenile</a></li>
+                        <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> Kapat</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body table-border-style">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Görsel</th>
+                            <th>Model</th>
+                            <th>Marka</th>
+                            <th>Günlük Fiyat</th>
+                            <th>Kilometre</th>
+                            <th>Yılı</th>
+                            
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var car in ViewBag.Last10Cars as IEnumerable<Car>)
+                        {
+                            <tr>
+                                <td>
+                                    <img src="@car.ImageUrl" alt="Car Image" width="200" height="100" style="border-radius: 5px;" />
+                                </td>
+                                <td>@car.ModelName</td>
+                                <td>@car.Brand.BrandName</td>
+                                <td>@car.Price</td>
+                                <td>@car.Kilometer</td>
+                                <td>@car.Year</td>
+                               
+                               
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+</div>

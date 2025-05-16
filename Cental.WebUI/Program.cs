@@ -22,6 +22,8 @@ builder.Services.AddDbContext<CentalContext>();
 
 
 
+
+
 builder.Services.AddIdentity<AppUser, AppRole>(cfg =>
 {
     cfg.User.RequireUniqueEmail = true;

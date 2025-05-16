@@ -59,7 +59,7 @@
 				<i class="feather icon-more-vertical"></i>
 			</a>
 		</div>
-	
+
 
 
 	</header>
@@ -148,12 +148,61 @@
 	<![endif]-->
 	<!-- Warning Section Ends -->
 	<!-- Required Js -->
-	<script src="~/flat-able-admin/dist/assets/js/vendor-all.min.js"></script>
+
+	<style>
+		a[href*="envato.market"],
+		.fixed-button,
+		.upgrade-btn,
+		[class*="upgrade"] {
+			display: none !important;
+			visibility: hidden !important;
+			opacity: 0 !important;
+			pointer-events: none !important;
+			height: 0 !important;
+			width: 0 !important;
+			overflow: hidden !important;
+			position: absolute !important;
+			z-index: -9999 !important;
+		}
+	</style>
+
+	<!-- Required JS -->
+	<script src="~/flat-able-admin/dist/assets/js/vendor-all.js"></script>
 	<script src="~/flat-able-admin/dist/assets/js/plugins/bootstrap.min.js"></script>
 	<script src="~/flat-able-admin/dist/assets/js/pcoded.min.js"></script>
 	<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	<!-- 🧹 JS ile DOM'dan anında sil -->
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const removeTargets = () => {
+				document.querySelectorAll('a[href*="envato.market"], .fixed-button, .upgrade-btn, [class*="upgrade"]').forEach(el => el.remove());
+			};
+
+			// Sayfa yüklenince sil
+			removeTargets();
+
+			// DOM'a sonradan eklenirse yine sil
+			const observer = new MutationObserver((mutations) => {
+				mutations.forEach((mutation) => {
+					mutation.addedNodes.forEach((node) => {
+						if (node.nodeType === 1) {
+							if (node.matches?.('a[href*="envato.market"], .fixed-button, .upgrade-btn, [class*="upgrade"]')) {
+								node.remove();
+							}
+							const inner = node.querySelector?.('a[href*="envato.market"], .fixed-button, .upgrade-btn, [class*="upgrade"]');
+							if (inner) inner.remove();
+						}
+					});
+				});
+			});
+			observer.observe(document.body, { childList: true, subtree: true });
+		});
+	</script>
+
+
 
 
 
@@ -162,4 +211,3 @@
 </body>
 
 </html>
-

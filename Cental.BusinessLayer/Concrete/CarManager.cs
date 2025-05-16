@@ -21,5 +21,11 @@ namespace Cental.BusinessLayer.Concrete
         {
           return  carDal.GetCarsWithBrands();
         }
+
+        public List<Car> TGetLast10Car()
+        {
+            return carDal.GetAll().OrderByDescending(x => x.CarId).Take(10).ToList();
+
+        }
     }
 }

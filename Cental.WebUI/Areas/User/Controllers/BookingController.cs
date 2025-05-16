@@ -10,8 +10,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Cental.WebUI.Areas.User.Controllers
 {
-    [Area("User")]
     [Authorize(Roles = "User")]
+    [Area("User")]
     public class BookingController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -37,15 +37,79 @@ namespace Cental.WebUI.Areas.User.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var bookings = _bookingService.TUsersBookings(user.Id); // Kullanıcının sadece kendi rezervasyonlarını alıyoruz.
+            var bookings = _bookingService.TUsersBookings(user.Id);
             var bookingDtos = _mapper.Map<List<ResultBookingDto>>(bookings);
             return View(bookingDtos);
         }
 
-        // Puan verme sayfası
+        private List<SelectListItem> GetCarSelectedList()
+        {
+            return _carService.TGetAll().Select(car => new SelectListItem
+            {
+                Text = $"{car.Year} {car.ModelName} {car.Brand.BrandName}",
+                Value = car.CarId.ToString()
+            }).ToList();
+        }
+
+        public async Task<IActionResult> CreateRezervationAsync()
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            ViewBag.user = user.Id;
+            ViewBag.SelectedCarList = GetCarSelectedList();
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateRezervation(InsertBookingDto model)
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var booking = _mapper.Map<Booking>(model);
+            booking.UserId = user.Id;
+            booking.Status = "Beklemede";
+            booking.IsApproved = null;
+
+            _bookingService.TInsert(booking);
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> UpdateRezervationAsync(int id)
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            ViewBag.user = user.Id;
+
+            var booking = _bookingService.TGetById(id);
+            booking.Status = booking.IsApproved switch
+            {
+                true => "Onaylandı",
+                false => "Reddedildi",
+                _ => "Beklemede"
+            };
+
+            var bookingDto = _mapper.Map<UpdateBookingDto>(booking);
+            ViewBag.SelectedCarList = GetCarSelectedList();
+            return View(bookingDto);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateRezervation(UpdateBookingDto model)
+        {
+            var booking = _mapper.Map<Booking>(model);
+            _bookingService.TUpdate(booking);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult DeleteRezervation(int id)
+        {
+            _bookingService.TDelete(id);
+            return RedirectToAction("Index");
+        }
+
+        // --- PUAN VERME ---
+
         [HttpGet]
         public IActionResult RateCar(int bookingId)
         {
+            // bookingId ile işlemler yapılacak
             var booking = _bookingService.TGetById(bookingId);
             if (booking == null || booking.IsApproved != true)
             {
@@ -59,6 +123,7 @@ namespace Cental.WebUI.Areas.User.Controllers
 
             return View(dto);
         }
+
 
         [HttpPost]
         public IActionResult RateCar(InsertReviewDto dto)
@@ -75,3 +140,4 @@ namespace Cental.WebUI.Areas.User.Controllers
         }
     }
 }
+
